@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>Trumptris</title>
+<title>Tetris Attempt</title>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="css/main.css" />
 </head>
@@ -23,10 +23,10 @@
     <script>
         $(document).ready(function(){
             for (i = 0; i < 25; i++){
-                $("#board").append("<div class='trow'>I'm a row</div>");
+                $("#board").append("<div class='trow r" + i +"'></div>");
             }
             for (i = 0; i < 25; i++){
-                $(".trow").append("<div class='tcell'>Cell</div>");
+                $(".trow").append("<div class='tcell c" + i +"'></div>");
             }
         });
 
