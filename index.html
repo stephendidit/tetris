@@ -20,16 +20,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
     <script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js" crossorigin="anonymous"></script>
     <script src="https://use.fontawesome.com/343cc4bbfb.js"></script>
+
     <script>
 
         var min = 0
         var max = 25
 
+
         function getRandomInt(min, max) {
             return Math.floor(Math.random() * (max - min)) + min;
         }
-        var random_row = "r" + getRandomInt(min,max)
-        var random_col = "c" + getRandomInt(min,max)
+        
+        var rand_for_row = getRandomInt(min,max);
+        var rand_for_col = getRandomInt(min,max);
+
+        var random_row = "r" + rand_for_row;
+        var random_col = "c" + rand_for_col;
 
         function highlightRow(row) {
             return "." + row + " .tcell";
@@ -48,6 +54,15 @@
             $(highlightRow(random_row)).addClass('ractive');
             $(highlightCol(random_col)).addClass('cactive');
             $('.ractive.cactive').addClass('active');
+            $('.ractive, .cactive').removeClass('ractive').removeClass('cactive');
+
+            var c = rand_for_row
+            var interval = setInterval(function() { 
+                $('.active').append(c);
+                c++;
+                if(c > max) clearInterval(interval);
+            }, 1000);
+
         });
 
     </script>
