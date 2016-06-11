@@ -23,7 +23,6 @@
 
     <script>
 
-
     var min = 0
     var max = 25
     
@@ -36,7 +35,7 @@
         }
     };
 
-    var StartingPoint = function () {
+    var RandomCell = function () {
         function getRandomInt(min, max) {
             return Math.floor(Math.random() * (max - min)) + min;
         }
@@ -46,15 +45,23 @@
         function highlightCol(col) {
             return "." + col;
         }
+        this.moveDown = function(){
+            var c = this.rand_for_row;
+            var interval = setInterval(function() { 
+                $('.active').append(c);
+                c++;
+                if(c > max) clearInterval(interval);
+            }, 1000);
+        }
         
-        var rand_for_row = getRandomInt(min,max);
-        var rand_for_col = getRandomInt(min,max);
+        this.rand_for_row = getRandomInt(min,max);
+        this.rand_for_col = getRandomInt(min,max);
 
-        var random_row = "r" + rand_for_row;
-        var random_col = "c" + rand_for_col;
+        this.random_row = "r" + this.rand_for_row;
+        this.random_col = "c" + this.rand_for_col;
 
-        $(highlightRow(random_row)).addClass('ractive');
-        $(highlightCol(random_col)).addClass('cactive');
+        $(highlightRow(this.random_row)).addClass('ractive');
+        $(highlightCol(this.random_col)).addClass('cactive');
         $('.ractive.cactive').addClass('active');
         $('.ractive, .cactive').removeClass('ractive').removeClass('cactive');
     }
@@ -63,14 +70,9 @@
         $(document).ready(function(){
             
             var grid = new Grid();
-            var starting_point = new StartingPoint();
-
-            var c = starting_point.rand_for_row
-            var interval = setInterval(function() { 
-                $('.active').append(c);
-                c++;
-                if(c > max) clearInterval(interval);
-            }, 1000);
+            var random_cell = new RandomCell();
+            random_cell.moveDown();
+            
 
         });
 
