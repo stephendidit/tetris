@@ -23,6 +23,15 @@
 
     <script>
 
+    var Grid = function () {
+        for (i = 0; i < max; i++){
+                $("#board").append("<div class='trow r" + i +"'></div>");
+        }
+        for (i = 0; i < max; i++){
+            $(".trow").append("<div class='tcell c" + i +"'></div>");
+        }
+    };
+
         var min = 0
         var max = 25
 
@@ -45,12 +54,9 @@
         }
 
         $(document).ready(function(){
-            for (i = 0; i < max; i++){
-                $("#board").append("<div class='trow r" + i +"'></div>");
-            }
-            for (i = 0; i < max; i++){
-                $(".trow").append("<div class='tcell c" + i +"'></div>");
-            }
+            
+            var grid = new Grid();
+
             $(highlightRow(random_row)).addClass('ractive');
             $(highlightCol(random_col)).addClass('cactive');
             $('.ractive.cactive').addClass('active');
