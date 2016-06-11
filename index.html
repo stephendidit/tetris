@@ -21,13 +21,33 @@
     <script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js" crossorigin="anonymous"></script>
     <script src="https://use.fontawesome.com/343cc4bbfb.js"></script>
     <script>
+
+        var min = 0
+        var max = 25
+
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+        var random_row = "r" + getRandomInt(min,max)
+        var random_col = "c" + getRandomInt(min,max)
+
+        function highlightRow(row) {
+            return "." + row + " .tcell";
+        }
+        function highlightCol(col) {
+            return "." + col;
+        }
+
         $(document).ready(function(){
-            for (i = 0; i < 25; i++){
+            for (i = 0; i < max; i++){
                 $("#board").append("<div class='trow r" + i +"'></div>");
             }
-            for (i = 0; i < 25; i++){
+            for (i = 0; i < max; i++){
                 $(".trow").append("<div class='tcell c" + i +"'></div>");
             }
+            $(highlightRow(random_row)).addClass('ractive');
+            $(highlightCol(random_col)).addClass('cactive');
+            $('.ractive.cactive').addClass('active');
         });
 
     </script>
