@@ -23,16 +23,19 @@
 
     <script>
 
-    var min = 0
+    var min = 1
     var max = 25
     
     var Grid = function () {
-        for (i = 0; i < max; i++){
+        for (i = min; i < max; i++){
             $("#board").append("<div class='trow r" + i +"'></div>");
+            
+            for (j = min; j < max; j++){
+                console.log(j + "!");
+                $(".r" + i).append("<div class='tcell cell-" + i + "-" + j + "'></div>");
+            }
         }
-        for (i = 0; i < max; i++){
-            $(".trow").append("<div class='tcell c" + i +"'></div>");
-        }
+        
     };
 // Perhaps separate out things further. So, first, have a virtual cell address. And once the virtual cell address is defined, then go ahead and draw it. 
 
@@ -60,8 +63,8 @@
             var interval = setInterval(function() {  // things to done within the timer
                 row_number = row_number += 1; // increase the row number by 1
                 console.log(rowNumberToAddress(row_number)); // print the new row number
-                $('.active').removeClass('active');
-                $("." + rowNumberToAddress(row_number) + " .tcell").addClass('active'); // target cells within that row and add active class
+                $('.active').removeClass('active'); // remove the active class on anything currently active
+                $("." + rowNumberToAddress(row_number) + " .tcell").addClass('ractive'); // target cells within that row and add active class
                 // $(highlightRow(row_number)).addClass('active');
                 // $('.active').append(i);
                 i++;
