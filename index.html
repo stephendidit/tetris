@@ -28,41 +28,59 @@
     
     var Grid = function () {
         for (i = 0; i < max; i++){
-                $("#board").append("<div class='trow r" + i +"'></div>");
+            $("#board").append("<div class='trow r" + i +"'></div>");
         }
         for (i = 0; i < max; i++){
             $(".trow").append("<div class='tcell c" + i +"'></div>");
         }
     };
+// Perhaps separate out things further. So, first, have a virtual cell address. And once the virtual cell address is defined, then go ahead and draw it. 
 
     var RandomCell = function () {
         function getRandomInt(min, max) {
             return Math.floor(Math.random() * (max - min)) + min;
         }
         function highlightRow(row) {
-            return "." + row + " .tcell";
+            return "." + row + " .tcell"; // needs the .tcell so that it's highlighting each cell in the row.
         }
         function highlightCol(col) {
-            return "." + col;
+            return "." + col; // doesn't need a tcell bc it's already a tcell.
         }
+
+        function rowNumberToAddress(number){
+            return "r" + number;
+        }
+        function colNumberToAddress(number){
+            return "c" + number;
+        }
+
         this.moveDown = function(){
-            var c = this.rand_for_row;
-            var interval = setInterval(function() { 
-                $('.active').append(c);
-                c++;
-                if(c > max) clearInterval(interval);
-            }, 1000);
+            var i = this.init_row_number; // set the index
+            var row_number = this.row_number // set the row_number locally
+            var interval = setInterval(function() {  // things to done within the timer
+                row_number = row_number += 1; // increase the row number by 1
+                console.log(rowNumberToAddress(row_number)); // print the new row number
+                $('.active').removeClass('active');
+                $("." + rowNumberToAddress(row_number) + " .tcell").addClass('active'); // target cells within that row and add active class
+                // $(highlightRow(row_number)).addClass('active');
+                // $('.active').append(i);
+                i++;
+                if(i > max) clearInterval(interval);
+            }, 125);
         }
+
+        this.init_row_number = getRandomInt(min,max);
+        this.init_col_number = getRandomInt(min,max);
+
         
-        this.rand_for_row = getRandomInt(min,max);
-        this.rand_for_col = getRandomInt(min,max);
+        this.init_col_address = "c" + this.init_col_number;
 
-        this.random_row = "r" + this.rand_for_row;
-        this.random_col = "c" + this.rand_for_col;
+        this.row_number = this.init_row_number;
+        this.col_number = this.init_col_number;
 
-        $(highlightRow(this.random_row)).addClass('ractive');
-        $(highlightCol(this.random_col)).addClass('cactive');
-        $('.ractive.cactive').addClass('active');
+        $( highlightRow( rowNumberToAddress( this.row_number ) ) ).addClass( 'ractive' );
+        $( highlightCol( colNumberToAddress( this.col_number ) ) ).addClass( 'cactive' );
+        $( '.ractive.cactive' ).addClass( 'active' );
         $('.ractive, .cactive').removeClass('ractive').removeClass('cactive');
     }
 
