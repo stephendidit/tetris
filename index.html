@@ -23,6 +23,10 @@
 
     <script>
 
+
+    var min = 0
+    var max = 25
+    
     var Grid = function () {
         for (i = 0; i < max; i++){
                 $("#board").append("<div class='trow r" + i +"'></div>");
@@ -32,12 +36,15 @@
         }
     };
 
-        var min = 0
-        var max = 25
-
-
+    var StartingPoint = function () {
         function getRandomInt(min, max) {
             return Math.floor(Math.random() * (max - min)) + min;
+        }
+        function highlightRow(row) {
+            return "." + row + " .tcell";
+        }
+        function highlightCol(col) {
+            return "." + col;
         }
         
         var rand_for_row = getRandomInt(min,max);
@@ -46,23 +53,19 @@
         var random_row = "r" + rand_for_row;
         var random_col = "c" + rand_for_col;
 
-        function highlightRow(row) {
-            return "." + row + " .tcell";
-        }
-        function highlightCol(col) {
-            return "." + col;
-        }
+        $(highlightRow(random_row)).addClass('ractive');
+        $(highlightCol(random_col)).addClass('cactive');
+        $('.ractive.cactive').addClass('active');
+        $('.ractive, .cactive').removeClass('ractive').removeClass('cactive');
+    }
+
 
         $(document).ready(function(){
             
             var grid = new Grid();
+            var starting_point = new StartingPoint();
 
-            $(highlightRow(random_row)).addClass('ractive');
-            $(highlightCol(random_col)).addClass('cactive');
-            $('.ractive.cactive').addClass('active');
-            $('.ractive, .cactive').removeClass('ractive').removeClass('cactive');
-
-            var c = rand_for_row
+            var c = starting_point.rand_for_row
             var interval = setInterval(function() { 
                 $('.active').append(c);
                 c++;
