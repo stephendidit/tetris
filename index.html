@@ -89,18 +89,20 @@
     //     $('.ractive, .cactive').removeClass('ractive').removeClass('cactive');
     // }
 
-        var Shapes = {
+        var Shapes = { // will need to expand each into a function so it can include its rotation movements
+            // rather than 'rotate'--perhaps make four of each shape and just switch between them.
             uno: [9,9],
             lel: [[9,9],[10,9],[10,10],[10,11]],
             rel: [[10,9],[10,10],[10,11],[9,11]],
-            line: [[9,9],[9,10],[9,11],[9,12]],
+            line: [[[9,9],[9,10],[9,11],[9,12]],[[9,9],[10,9],[11,9],[12,9]]],
             square: [[9,9],[9,10],[10,9],[10,10]],
             tee: [[9,9],[9,10],[9,11],[10,10]]
         }
 
-        var Cell = function(r1,c1){
+        var Cell = function(shape){
             // can i take an arbitrary # of r/c combinations, and push each one into the following array?
-            this.cells = [[r1,c1]]
+            this.cells = shape[0]
+            
             // and then push into addresses, i guess.
             // this.address = "cell-" + r1 + "-" + c1;
 
@@ -113,7 +115,7 @@
             var grid = new Grid();
             // var random_cell = new RandomCell();
             // random_cell.moveDown();
-            var my_cell = new Cell(Shapes.uno);
+            var my_cell = new Cell(Shapes.line);
             console.log(my_cell);
         });
 
