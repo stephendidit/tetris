@@ -37,64 +37,84 @@
         }
         
     };
+
+    
 // Perhaps separate out things further. So, first, have a virtual cell address. And once the virtual cell address is defined, then go ahead and draw it. 
 
-    var RandomCell = function () {
-        function getRandomInt(min, max) {
-            return Math.floor(Math.random() * (max - min)) + min;
-        }
-        function highlightRow(row) {
-            return "." + row + " .tcell"; // needs the .tcell so that it's highlighting each cell in the row.
-        }
-        function highlightCol(col) {
-            return "." + col; // doesn't need a tcell bc it's already a tcell.
-        }
+    // var RandomCell = function () {
+    //     function getRandomInt(min, max) {
+    //         return Math.floor(Math.random() * (max - min)) + min;
+    //     }
+    //     function highlightRow(row) {
+    //         return "." + row + " .tcell"; // needs the .tcell so that it's highlighting each cell in the row.
+    //     }
+    //     function highlightCol(col) {
+    //         return "." + col; // doesn't need a tcell bc it's already a tcell.
+    //     }
 
-        function rowNumberToAddress(number){
-            return "r" + number;
-        }
-        function colNumberToAddress(number){
-            return "c" + number;
-        }
+    //     function rowNumberToAddress(number){
+    //         return "r" + number;
+    //     }
+    //     function colNumberToAddress(number){
+    //         return "c" + number;
+    //     }
 
-        this.moveDown = function(){
-            var i = this.init_row_number; // set the index
-            var row_number = this.row_number // set the row_number locally
-            var interval = setInterval(function() {  // things to done within the timer
-                row_number = row_number += 1; // increase the row number by 1
-                console.log(rowNumberToAddress(row_number)); // print the new row number
-                $('.active').removeClass('active'); // remove the active class on anything currently active
-                $("." + rowNumberToAddress(row_number) + " .tcell").addClass('ractive'); // target cells within that row and add active class
-                // $(highlightRow(row_number)).addClass('active');
-                // $('.active').append(i);
-                i++;
-                if(i > max) clearInterval(interval);
-            }, 125);
-        }
+    //     this.moveDown = function(){
+    //         var i = this.init_row_number; // set the index
+    //         var row_number = this.row_number // set the row_number locally
+    //         var interval = setInterval(function() {  // things to done within the timer
+    //             row_number = row_number += 1; // increase the row number by 1
+    //             console.log(rowNumberToAddress(row_number)); // print the new row number
+    //             $('.active').removeClass('active'); // remove the active class on anything currently active
+    //             $("." + rowNumberToAddress(row_number) + " .tcell").addClass('ractive'); // target cells within that row and add active class
+    //             // $(highlightRow(row_number)).addClass('active');
+    //             // $('.active').append(i);
+    //             i++;
+    //             if(i > max) clearInterval(interval);
+    //         }, 125);
+    //     }
 
-        this.init_row_number = getRandomInt(min,max);
-        this.init_col_number = getRandomInt(min,max);
+    //     this.init_row_number = getRandomInt(min,max);
+    //     this.init_col_number = getRandomInt(min,max);
 
         
-        this.init_col_address = "c" + this.init_col_number;
+    //     this.init_col_address = "c" + this.init_col_number;
 
-        this.row_number = this.init_row_number;
-        this.col_number = this.init_col_number;
+    //     this.row_number = this.init_row_number;
+    //     this.col_number = this.init_col_number;
 
-        $( highlightRow( rowNumberToAddress( this.row_number ) ) ).addClass( 'ractive' );
-        $( highlightCol( colNumberToAddress( this.col_number ) ) ).addClass( 'cactive' );
-        $( '.ractive.cactive' ).addClass( 'active' );
-        $('.ractive, .cactive').removeClass('ractive').removeClass('cactive');
-    }
+    //     $( highlightRow( rowNumberToAddress( this.row_number ) ) ).addClass( 'ractive' );
+    //     $( highlightCol( colNumberToAddress( this.col_number ) ) ).addClass( 'cactive' );
+    //     $( '.ractive.cactive' ).addClass( 'active' );
+    //     $('.ractive, .cactive').removeClass('ractive').removeClass('cactive');
+    // }
 
+        var Shapes = {
+            uno: [9,9],
+            lel: [[9,9],[10,9],[10,10],[10,11]],
+            rel: [[10,9],[10,10],[10,11],[9,11]],
+            line: [[9,9],[9,10],[9,11],[9,12]],
+            square: [[9,9],[9,10],[10,9],[10,10]],
+            tee: [[9,9],[9,10],[9,11],[10,10]]
+        }
+
+        var Cell = function(r1,c1){
+            // can i take an arbitrary # of r/c combinations, and push each one into the following array?
+            this.cells = [[r1,c1]]
+            // and then push into addresses, i guess.
+            // this.address = "cell-" + r1 + "-" + c1;
+
+            // this.locations = [r1,c1];
+            // this.row = r;
+        }
 
         $(document).ready(function(){
             
             var grid = new Grid();
-            var random_cell = new RandomCell();
-            random_cell.moveDown();
-            
-
+            // var random_cell = new RandomCell();
+            // random_cell.moveDown();
+            var my_cell = new Cell(Shapes.uno);
+            console.log(my_cell);
         });
 
     </script>
