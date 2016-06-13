@@ -1,25 +1,76 @@
 <html>
 <body>
-<script>
-
+<header>
         var line = new Object();
         line['positions'] = {} ;
-        line['positions']['pos_one'] = [[1,2],[3,4]];
-        line['positions']['pos_two'] = [[5,6],[7,8]];
+        line['positions']['pos_1'] = [[1,10],[1,11],[1,12],[1,13]];
+        line['positions']['pos_2'] = [[0,11],[1,11],[2,11],[3,11]];
         
         var moveDown = function(shape){    
             i = 0
             var interval = setInterval(function(){
-                for (blocks in shape['positions']['pos_one']){
-                    shape['positions']['pos_one'][blocks][0] += 1
-                    console.log(shape['positions']['pos_one'][blocks]);
+                for (p in shape['positions']){
+                    for (blocks in shape['positions'][p]){
+                        shape['positions'][p][blocks][0] += 1
+                        console.log(shape['positions'][p][blocks]);
+                    }
+                    i++
+                    if(i > 10) clearInterval(interval);
                 }
-                i++
-                if(i > 10) clearInterval(interval);
             },100);
         }
 
         moveDown(line);
+
+    </header>
+    <script type="text/javascript">
+        function Line() {
+            this['positions'] = {} ;
+            this['current_position'] = 'pos_1';
+            this['positions']['pos_1'] = [[1,10],[1,11],[1,12],[1,13]];
+            this['positions']['pos_2'] = [[0,11],[1,11],[2,11],[3,11]];
+            this['positions']['pos_3'] = [[1,10],[1,11],[1,12],[1,13]];
+            this['positions']['pos_4'] = [[0,11],[1,11],[2,11],[3,11]];
+        }
+
+        var moveDown = function(shape){    
+            i = 0
+            var interval = setInterval(function(){
+                for (p in shape['positions']){
+                    for (blocks in shape['positions'][p]){
+                        shape['positions'][p][blocks][0] += 1
+                        console.log(shape['positions'][p][blocks]);
+                    }
+                    i++
+                    if(i > 10) clearInterval(interval);
+                }
+            },100);
+        }
+
+        var rotate = function(shape){
+            switch(shape.current_position){
+                case "pos_1":
+                    // alert(shape.current_position);
+                    shape.current_position = "pos_2";
+                    break;
+                case "pos_2":
+                    shape.current_position = "pos_3";
+                    break;
+                case "pos_3":
+                    shape.current_position = "pos_4";
+                    break;
+                case "pos_4":
+                    shape.current_position = "pos_1";
+                    break;
+            }
+        }
+
+        var my_shape = new Line();
+        // moveDown(my_shape);
+        rotate(my_shape);
+        alert(my_shape.current_position)
+        rotate(my_shape);
+        alert(my_shape.current_position)
 
     </script>
 </body>
