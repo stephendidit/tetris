@@ -1,0 +1,23 @@
+<html>
+<body>
+<script>
+
+        twodim = {
+            line: [
+                [[1,2],[3,4]],
+                [[5,6],[7,8]]
+            ]
+        }
+
+        for(i=0; i < twodim.line.length; i++) {
+            var turn = twodim.line[i];
+            for (var j=0; j < turn.length; j++){
+                turn[j] = parseInt(turn[j]) + 1;
+                console.log("rotation[" + i + "][" + j + "] = " + turn[j]);
+            }
+        }
+
+
+    </script>
+</body>
+</html>

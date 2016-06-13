@@ -31,7 +31,7 @@
             $("#board").append("<div class='trow r" + i +"'></div>");
             
             for (j = min; j < max; j++){
-                console.log(j + "!");
+                // console.log(j + "!");
                 $(".r" + i).append("<div class='tcell cell-" + i + "-" + j + "'></div>");
             }
         }
@@ -59,20 +59,20 @@
     //         return "c" + number;
     //     }
 
-    //     this.moveDown = function(){
-    //         var i = this.init_row_number; // set the index
-    //         var row_number = this.row_number // set the row_number locally
-    //         var interval = setInterval(function() {  // things to done within the timer
-    //             row_number = row_number += 1; // increase the row number by 1
-    //             console.log(rowNumberToAddress(row_number)); // print the new row number
-    //             $('.active').removeClass('active'); // remove the active class on anything currently active
-    //             $("." + rowNumberToAddress(row_number) + " .tcell").addClass('ractive'); // target cells within that row and add active class
-    //             // $(highlightRow(row_number)).addClass('active');
-    //             // $('.active').append(i);
-    //             i++;
-    //             if(i > max) clearInterval(interval);
-    //         }, 125);
-    //     }
+        // this.moveDown = function(){
+            // var i = this.init_row_number; // set the index
+            // var row_number = this.row_number // set the row_number locally
+            // var interval = setInterval(function() {  // things to done within the timer
+            //     row_number = row_number += 1; // increase the row number by 1
+            //     console.log(rowNumberToAddress(row_number)); // print the new row number
+            //     $('.active').removeClass('active'); // remove the active class on anything currently active
+            //     $("." + rowNumberToAddress(row_number) + " .tcell").addClass('ractive'); // target cells within that row and add active class
+            //     // $(highlightRow(row_number)).addClass('active');
+            //     // $('.active').append(i);
+            //     i++;
+            //     if(i > max) clearInterval(interval);
+        //     }, 125);
+        // }
 
     //     this.init_row_number = getRandomInt(min,max);
     //     this.init_col_number = getRandomInt(min,max);
@@ -89,19 +89,26 @@
     //     $('.ractive, .cactive').removeClass('ractive').removeClass('cactive');
     // }
 
-        var Shapes = { // will need to expand each into a function so it can include its rotation movements
-            // rather than 'rotate'--perhaps make four of each shape and just switch between them.
+        var Shapes = {
             uno: [9,9],
-            lel: [[9,9],[10,9],[10,10],[10,11]],
+            lel: [
+                [9,9],[10,9],[10,10],[10,11]
+                ],
             rel: [[10,9],[10,10],[10,11],[9,11]],
-            line: [[[9,9],[9,10],[9,11],[9,12]],[[9,9],[10,9],[11,9],[12,9]]],
+            line: {
+                init: [[9,9],[9,10],[9,11],[9,12]],
+                sec: [[9,9],[10,9],[11,9],[12,9]], 
+            },
             square: [[9,9],[9,10],[10,9],[10,10]],
             tee: [[9,9],[9,10],[9,11],[10,10]]
         }
 
+        var my_shape;
+
         var Cell = function(shape){
             // can i take an arbitrary # of r/c combinations, and push each one into the following array?
-            this.cells = shape[0]
+            this.cells = shape
+            this.current = shape[0]
             
             // and then push into addresses, i guess.
             // this.address = "cell-" + r1 + "-" + c1;
@@ -109,14 +116,28 @@
             // this.locations = [r1,c1];
             // this.row = r;
         }
+// cells has 2 x
+// x has 4 y
+// y has 2 z 
+        function moveDown() {
+            i = 0
+            var interval = setInterval(function(){
+                for (i=0; i < my_shape["cells"].length; i++){
+                    console.log(my_shape["cells"][0][1][1]);
+                }
+                i++
+                if(i > 10) clearInterval(interval);
+            },100);
+        }
+
 
         $(document).ready(function(){
             
             var grid = new Grid();
             // var random_cell = new RandomCell();
             // random_cell.moveDown();
-            var my_cell = new Cell(Shapes.line);
-            console.log(my_cell);
+            my_shape = new Cell(Shapes.line);
+            moveDown();
         });
 
     </script>

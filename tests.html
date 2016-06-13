@@ -1,0 +1,26 @@
+<html>
+<body>
+<script>
+
+        var line = new Object();
+        line['positions'] = {} ;
+        line['positions']['pos_one'] = [[1,2],[3,4]];
+        line['positions']['pos_two'] = [[5,6],[7,8]];
+        
+        var moveDown = function(shape){    
+            i = 0
+            var interval = setInterval(function(){
+                for (blocks in shape['positions']['pos_one']){
+                    shape['positions']['pos_one'][blocks][0] += 1
+                    console.log(shape['positions']['pos_one'][blocks]);
+                }
+                i++
+                if(i > 10) clearInterval(interval);
+            },100);
+        }
+
+        moveDown(line);
+
+    </script>
+</body>
+</html>
