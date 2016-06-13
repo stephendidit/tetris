@@ -1,28 +1,6 @@
 <html>
 <body>
-<header>
-        var line = new Object();
-        line['positions'] = {} ;
-        line['positions']['pos_1'] = [[1,10],[1,11],[1,12],[1,13]];
-        line['positions']['pos_2'] = [[0,11],[1,11],[2,11],[3,11]];
-        
-        var moveDown = function(shape){    
-            i = 0
-            var interval = setInterval(function(){
-                for (p in shape['positions']){
-                    for (blocks in shape['positions'][p]){
-                        shape['positions'][p][blocks][0] += 1
-                        console.log(shape['positions'][p][blocks]);
-                    }
-                    i++
-                    if(i > 10) clearInterval(interval);
-                }
-            },100);
-        }
 
-        moveDown(line);
-
-    </header>
     <script type="text/javascript">
         function Line() {
             this['positions'] = {} ;
@@ -66,11 +44,11 @@
         }
 
         var my_shape = new Line();
-        // moveDown(my_shape);
+        moveDown(my_shape);
         rotate(my_shape);
-        alert(my_shape.current_position)
+        console.log(my_shape.current_position)
         rotate(my_shape);
-        alert(my_shape.current_position)
+        console.log(my_shape.current_position)
 
     </script>
 </body>
