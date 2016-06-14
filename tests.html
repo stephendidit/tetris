@@ -1,6 +1,6 @@
 <html>
 <body>
-
+<p> maybe i'm going about this all wrong--maybe i should have an endless clock, and if the moveDown is on, it'll move with the clock. so make a new shape, and then make its movedown = true, and if movedown = true, each time the clock sends out a ping function, it'll move down.
     <script type="text/javascript">
         function Line() {
             this['positions'] = {} ;
@@ -11,6 +11,10 @@
             this['positions']['pos_4'] = [[0,11],[1,11],[2,11],[3,11]];
         }
 
+    
+
+
+
         var moveDown = function(shape){    
             i = 0
             var interval = setInterval(function(){
@@ -19,10 +23,10 @@
                         shape['positions'][p][blocks][0] += 1
                         console.log(shape['positions'][p][blocks]);
                     }
-                    i++
-                    if(i > 10) clearInterval(interval);
                 }
-            },100);
+                i++
+                if(i >= 10) clearInterval(interval);
+            },1000);
         }
 
         var rotate = function(shape){
