@@ -73,20 +73,18 @@
                     shape['positions'][p][blocks]['x'] += 1
                     var a = ".cell-" + shape['positions'][my_shape.current_position][blocks]['x'] + '-' + shape['positions'][my_shape.current_position][blocks]['y'];
                     $(a).addClass('active');
-                    // alert(a);
                     console.log(shape['positions'][p][blocks]);
-                    // console.log("ding! " + ii)
                 }
             }
             ii++
-            if(ii >= 10) clearInterval(interval);
-        },1000);
+            if(ii >= 20) clearInterval(interval);
+        },500);
     }
 
     var rotate = function(shape){
+        $('.active').removeClass('active');
         switch(shape.current_position){
             case "pos_1":
-                // alert(shape.current_position);
                 shape.current_position = "pos_2";
                 break;
             case "pos_2":
@@ -99,9 +97,22 @@
                 shape.current_position = "pos_1";
                 break;
         }
+        var a = ".cell-" + shape['positions'][my_shape.current_position][blocks]['x'] + '-' + shape['positions'][my_shape.current_position][blocks]['y'];
+                    $(a).addClass('active');        
     }
 
+
+
+
     var my_shape = new Line();
+    
+    $( "body" ).keydown(function( event ) {
+        if ( event.which == 38 ) {
+            event.preventDefault();
+            rotate(my_shape);
+        }
+    });
+
     moveDown(my_shape);
     rotate(my_shape);
     console.log(my_shape.current_position)
