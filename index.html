@@ -12,14 +12,15 @@
 <body>
 
     <div id="board"></div>
-
+<p></p>
+<p>Bug: on rotate, redraws only one block</p>
     <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
     <script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js" crossorigin="anonymous"></script>
     <script src="https://use.fontawesome.com/343cc4bbfb.js"></script>
 
-    
+
 
 
 
@@ -27,17 +28,17 @@
 
     var min = 1
     var max = 25
-    
+
     var Grid = function () {
-        for (i = min; i < max; i++){
-            $("#board").append("<div class='trow r" + i +"'></div>");            
-            for (j = min; j < max; j++){
+        for (var i = min; i < max; i++){
+            $("#board").append("<div class='trow r" + i +"'></div>");
+            for (var j = min; j < max; j++){
                 $(".r" + i).append("<div class='tcell cell-" + i + "-" + j + "'></div>");
             }
-        }        
+        }
     };
 
-    $(document).ready(function(){            
+    $(document).ready(function(){
         var grid = new Grid();
     });
 
@@ -63,21 +64,21 @@
         this['positions']['pos_4'] = [{x: 0, y: 11},{x: 1, y: 11},{x: 2, y: 11},{x: 3, y: 11}];
     }
 
-    var moveDown = function(shape){    
-        ii = 0
-        
+    var moveDown = function(shape){
+        var i = 0
+
         var interval = setInterval(function(){
-            for (p in shape['positions']){
+            for (var pos_x in shape['positions']){
                 $('.active').removeClass('active');
-                for (blocks in shape['positions'][p]){
-                    shape['positions'][p][blocks]['x'] += 1
+                for (blocks in shape['positions'][pos_x]){
+                    shape['positions'][pos_x][blocks]['x'] += 1
                     var a = ".cell-" + shape['positions'][my_shape.current_position][blocks]['x'] + '-' + shape['positions'][my_shape.current_position][blocks]['y'];
                     $(a).addClass('active');
-                    console.log(shape['positions'][p][blocks]);
+                    console.log(shape['positions'][pos_x][blocks]);
                 }
             }
-            ii++
-            if(ii >= 20) clearInterval(interval);
+            i++
+            if(i >= 20) clearInterval(interval);
         },500);
     }
 
@@ -97,15 +98,37 @@
                 shape.current_position = "pos_1";
                 break;
         }
+        // need to create a for loop
+
+
+
+for (blocks in shape.current_position){
+
+
+
+
+            console.error(shape.current_position);
+
+
+            // var a = ".cell-" + shape['positions'][my_shape.current_position][blocks]['x'] + '-' + shape['positions'][my_shape.current_position][blocks]['y'];
+            // $(a).addClass('active');
+            // console.log(shape['positions'][p][blocks]);
+        }
+
+
+
+
+
+
         var a = ".cell-" + shape['positions'][my_shape.current_position][blocks]['x'] + '-' + shape['positions'][my_shape.current_position][blocks]['y'];
-                    $(a).addClass('active');        
+                    $(a).addClass('active');
     }
 
 
 
 
     var my_shape = new Line();
-    
+
     $( "body" ).keydown(function( event ) {
         if ( event.which == 38 ) {
             event.preventDefault();
