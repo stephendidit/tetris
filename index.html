@@ -67,18 +67,19 @@
     var moveDown = function(shape){
         var i = 0
 
-        var interval = setInterval(function(){
-            for (var pos_x in shape['positions']){
-                $('.active').removeClass('active');
-                for (blocks in shape['positions'][pos_x]){
-                    shape['positions'][pos_x][blocks]['x'] += 1
-                    var a = ".cell-" + shape['positions'][my_shape.current_position][blocks]['x'] + '-' + shape['positions'][my_shape.current_position][blocks]['y'];
-                    $(a).addClass('active');
-                    console.log(shape['positions'][pos_x][blocks]);
+        var interval = setInterval(function(){ // create interval timer as a variable so we can shut it off later
+            for (var pos_x in shape['positions']){ // for each position
+                $('.active').removeClass('active'); // remove .active on any cells currently active
+                for (block_hash in shape['positions'][pos_x]){ // for each block hash in any given position
+                    shape['positions'][pos_x][block_hash]['x'] += 1 // increase the x value by 1, effectively moving the shape down 1 row.
+                    var current_block_hash = shape['positions'][shape.current_position][block_hash] // turn this unwieldy thing into a variable
+                    var cell_class = ".cell-" + current_block_hash['x'] + '-' + current_block_hash['y']; // build the cell class out of these values
+                    $(cell_class).addClass('active'); // set the var cell_class to active
+                    // console.log(shape['positions'][pos_x][block_hash]);
                 }
             }
             i++
-            if(i >= 20) clearInterval(interval);
+            if(i >= 20) clearInterval(interval); // if the counter is over 20, then stop the interval timer
         },500);
     }
 
@@ -97,32 +98,16 @@
             case "pos_4":
                 shape.current_position = "pos_1";
                 break;
-        }
-        // need to create a for loop
+        } // end switch
 
+        // need to create a for loop to redraw on rotation--otherwise it undraws it and doesn't redraw until the next moveDown
 
-
-for (blocks in shape.current_position){
-
-
-
-
-            console.error(shape.current_position);
-
-
-            // var a = ".cell-" + shape['positions'][my_shape.current_position][blocks]['x'] + '-' + shape['positions'][my_shape.current_position][blocks]['y'];
-            // $(a).addClass('active');
-            // console.log(shape['positions'][p][blocks]);
-        }
-
-
-
-
-
-
-        var a = ".cell-" + shape['positions'][my_shape.current_position][blocks]['x'] + '-' + shape['positions'][my_shape.current_position][blocks]['y'];
-                    $(a).addClass('active');
-    }
+        for (block_hash in shape['positions'][shape.current_position]){ // for each block hash in any given position
+            var current_block_hash = shape['positions'][shape.current_position][block_hash] // turn this unwieldy thing into a variable
+            var cell_class = ".cell-" + current_block_hash['x'] + '-' + current_block_hash['y']; // build the cell class out of these values
+            $(cell_class).addClass('active'); // set the var cell_class to active
+        } // end for
+    } // end var rotate
 
 
 
