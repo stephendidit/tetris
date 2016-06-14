@@ -43,6 +43,16 @@
 
     </script>
 
+
+
+
+
+
+
+
+
+
+
     <script type="text/javascript">
     function Line() {
         this['positions'] = {} ;
@@ -55,10 +65,15 @@
 
     var moveDown = function(shape){    
         ii = 0
+        
         var interval = setInterval(function(){
             for (p in shape['positions']){
+                $('.active').removeClass('active');
                 for (blocks in shape['positions'][p]){
                     shape['positions'][p][blocks]['x'] += 1
+                    var a = ".cell-" + shape['positions'][my_shape.current_position][blocks]['x'] + '-' + shape['positions'][my_shape.current_position][blocks]['y'];
+                    $(a).addClass('active');
+                    // alert(a);
                     console.log(shape['positions'][p][blocks]);
                     // console.log("ding! " + ii)
                 }
