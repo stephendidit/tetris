@@ -38,82 +38,9 @@
         
     };
 
-    
-// Perhaps separate out things further. So, first, have a virtual cell address. And once the virtual cell address is defined, then go ahead and draw it. 
-
-    // var RandomCell = function () {
-    //     function getRandomInt(min, max) {
-    //         return Math.floor(Math.random() * (max - min)) + min;
-    //     }
-    //     function highlightRow(row) {
-    //         return "." + row + " .tcell"; // needs the .tcell so that it's highlighting each cell in the row.
-    //     }
-    //     function highlightCol(col) {
-    //         return "." + col; // doesn't need a tcell bc it's already a tcell.
-    //     }
-
-    //     function rowNumberToAddress(number){
-    //         return "r" + number;
-    //     }
-    //     function colNumberToAddress(number){
-    //         return "c" + number;
-    //     }
-
-        // this.moveDown = function(){
-            // var i = this.init_row_number; // set the index
-            // var row_number = this.row_number // set the row_number locally
-            // var interval = setInterval(function() {  // things to done within the timer
-            //     row_number = row_number += 1; // increase the row number by 1
-            //     console.log(rowNumberToAddress(row_number)); // print the new row number
-            //     $('.active').removeClass('active'); // remove the active class on anything currently active
-            //     $("." + rowNumberToAddress(row_number) + " .tcell").addClass('ractive'); // target cells within that row and add active class
-            //     // $(highlightRow(row_number)).addClass('active');
-            //     // $('.active').append(i);
-            //     i++;
-            //     if(i > max) clearInterval(interval);
-        //     }, 125);
-        // }
-
-    //     this.init_row_number = getRandomInt(min,max);
-    //     this.init_col_number = getRandomInt(min,max);
-
-        
-    //     this.init_col_address = "c" + this.init_col_number;
-
-    //     this.row_number = this.init_row_number;
-    //     this.col_number = this.init_col_number;
-
-    //     $( highlightRow( rowNumberToAddress( this.row_number ) ) ).addClass( 'ractive' );
-    //     $( highlightCol( colNumberToAddress( this.col_number ) ) ).addClass( 'cactive' );
-    //     $( '.ractive.cactive' ).addClass( 'active' );
-    //     $('.ractive, .cactive').removeClass('ractive').removeClass('cactive');
-    // }
-
-        var my_shape;
-
-        var Cell = function(shape){
-            // can i take an arbitrary # of r/c combinations, and push each one into the following array?
-            this.cells = shape
-            this.current = shape[0]
-            
-            // and then push into addresses, i guess.
-            // this.address = "cell-" + r1 + "-" + c1;
-
-            // this.locations = [r1,c1];
-            // this.row = r;
-        }
-// cells has 2 x
-// x has 4 y
-// y has 2 z 
-
-        $(document).ready(function(){
-            
-            var grid = new Grid();
-            // var random_cell = new RandomCell();
-            // random_cell.moveDown();
-            my_shape = new Cell(Shapes.line);
-            moveDown();
-        });
+    $(document).ready(function(){            
+        var grid = new Grid();
+    });
 
     </script>
 </body>
