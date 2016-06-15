@@ -7,7 +7,7 @@
     height: 2rem;
     width: 2rem;
     background-color: lightblue;
-    margin:2px;
+    margin:.5px;
     /*float: left;*/
     display: inline-block;
 }
