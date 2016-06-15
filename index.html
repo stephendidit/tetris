@@ -13,7 +13,7 @@
 
     <div id="board"></div>
 <p></p>
-<p>Bug: on rotate, redraws only one block</p>
+<p>Notes:</p>
     <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
@@ -25,6 +25,7 @@
 
 
     <script>
+    // Create grid
 
     var min = 1
     var max = 25
@@ -55,6 +56,10 @@
 
 
     <script type="text/javascript">
+    // Shapes and Movements
+
+
+
     function Line() {
         this['positions'] = {} ;
         this['current_position'] = 'pos_1';
@@ -64,10 +69,12 @@
         this['positions']['pos_4'] = [{x: 0, y: 11},{x: 1, y: 11},{x: 2, y: 11},{x: 3, y: 11}];
     }
 
+    var intervalDown;
+
     var moveDown = function(shape){
         var i = 0
 
-        var interval = setInterval(function(){ // create interval timer as a variable so we can shut it off later
+        intervalDown = setInterval(function(){ // create interval timer as a variable so we can shut it off later
             for (var pos_x in shape['positions']){ // for each position
                 $('.active').removeClass('active'); // remove .active on any cells currently active
                 for (block_hash in shape['positions'][pos_x]){ // for each block hash in any given position
@@ -109,7 +116,7 @@
         } // end for
     } // end var rotate
 
-
+    // if any block of my_shape touches a block with a "finalized" class, 
 
 
     var my_shape = new Line();
