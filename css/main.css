@@ -16,6 +16,10 @@
     background-color: hotpink;
 }
 
+.tcell.testclass {
+    background-color: lightgreen;
+}
+
 .trow {
     display: flex; /* this makes the cells squish up when resized */
 }

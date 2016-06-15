@@ -25,7 +25,9 @@
     <script>
 
     var Grid = function(){
-        this.makeCell = function(x,y) {// this = {}
+
+        // Take x: 7, y: 12 and return as 0712
+        this.makeCell = function(x,y) {
             if (x.toString().length < 2) {
                 x = "0" + x.toString();
             } else {
@@ -36,16 +38,8 @@
             } else {
                 y = y.toString();
             }
-
             return x + y;
         }
-    }
-
-    function drawGrid(){
-        /* 1. look at the grid
-         * 2. for each object in the grid
-         * 3. copy its status to the vGrid
-        */
     }
 
     function updateGrid(n,status){
@@ -54,10 +48,26 @@
          * 3. update the grid's cell
          * 4. drawGrid so it goes back to the vGrid
         */
-        console.log("We're dealing with: " + n + " " + status)
+        // console.log("We're dealing with: " + n + " " + status)
         // 3
-        grid[n] = status;
-        console.log(grid);
+        if (grid[n] != status){
+            grid[n] = status;
+            switch(grid[n]){
+                case "active":
+                    $(".c" + n).removeClass("empty parked");
+                    break;
+                case "empty":
+                    $(".c" + n).removeClass("active parked");
+                    break;
+                case "parked":
+                    $(".c" + n).removeClass("active empty");
+                    break;
+            }
+
+
+            $(".c" + n).addClass(grid[n]);
+        }
+        // console.log(grid);
         // 4 need to run this through drawGrid...at which point we'll be drawing the redrawing the grid based on array values, not based on separate jquery logic.
 
     }
@@ -69,8 +79,7 @@
             for (var j = 1; j <= 10; j++){
                 var n = grid.makeCell(i,j)
                 $(".r" + i).append("<div class='tcell cell-" + i + "-" + j + " c" + n + "'></div>");
-                var a = grid.makeCell(i,j);
-                grid[a] = "empty";
+                grid[n] = "empty";
             }
         }
     };
@@ -95,7 +104,7 @@
                     updateGrid(n,"active"); // switch them to active, because this is where the shape is now.
 
                     var cell_class = ".cell-" + current_block_hash['x'] + '-' + current_block_hash['y']; // build the cell class out of these values
-                    $(cell_class).addClass('active'); // set the var cell_class to active
+                    // $(cell_class).addClass('active'); // set the var cell_class to active
                 }
             }
             i++
@@ -149,17 +158,18 @@
     var grid = new Grid();
     var vgrid = new VGrid();
     var my_shape = new Line();
-    var filled = [{x:10,y:10}];
-    var tmp = grid.makeCell(filled[0]['x'],filled[0]['y']);
-    grid[tmp] = "active"
-    console.log(tmp);
-    console.log(grid);
+
+    // var filled = [{x:10,y:10}];
+    // var tmp = grid.makeCell(filled[0]['x'],filled[0]['y']);
+    // grid[tmp] = "active"
+    // console.log(tmp);
+    // console.log(grid);
 
     moveDown(my_shape);
     rotate(my_shape);
-    console.log(my_shape.current_position)
+    // console.log(my_shape.current_position)
     rotate(my_shape);
-    console.log(my_shape.current_position)
+    // console.log(my_shape.current_position)
 
     </script>
 </body>
