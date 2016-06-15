@@ -28,19 +28,32 @@
     // Create grid
 
     var min = 1
-    var max = 25
+    var max = 26
+
+    var Cell = function(x,y){
+        // this = {}
+        this['x'] = x;
+        this['y'] = y;
+        state: "empty";
+    }
 
     var Grid = function () {
-        for (var i = min; i < max; i++){
+
+        gridMap = []
+
+        for (var i = 1; i <= 20; i++){
             $("#board").append("<div class='trow r" + i +"'></div>");
-            for (var j = min; j < max; j++){
+            for (var j = 1; j <= 10; j++){
                 $(".r" + i).append("<div class='tcell cell-" + i + "-" + j + "'></div>");
+                var cell = new Cell(i,j);
+                gridMap.push( cell );
             }
         }
     };
 
     $(document).ready(function(){
         var grid = new Grid();
+        console.log(gridMap);
     });
 
     </script>
@@ -69,24 +82,41 @@
         this['positions']['pos_4'] = [{x: 0, y: 11},{x: 1, y: 11},{x: 2, y: 11},{x: 3, y: 11}];
     }
 
+
+    var filled = [{x:2,y:10}];
+
+
+
     var intervalDown;
 
     var moveDown = function(shape){
         var i = 0
 
         intervalDown = setInterval(function(){ // create interval timer as a variable so we can shut it off later
+            something = [];
             for (var pos_x in shape['positions']){ // for each position
+
                 $('.active').removeClass('active'); // remove .active on any cells currently active
                 for (block_hash in shape['positions'][pos_x]){ // for each block hash in any given position
-                    shape['positions'][pos_x][block_hash]['x'] += 1 // increase the x value by 1, effectively moving the shape down 1 row.
-                    var current_block_hash = shape['positions'][shape.current_position][block_hash] // turn this unwieldy thing into a variable
+                    if ((shape['positions'][pos_x][block_hash]['x'] + 1) == filled[0]) {alert("ok");}
+                    shape['positions'][pos_x][block_hash]['x'] += 1; // increase the x value by 1, effectively moving the shape down 1 row.
+                    current_block_hash = shape['positions'][shape.current_position][block_hash]; // turn this unwieldy thing into a variable
                     var cell_class = ".cell-" + current_block_hash['x'] + '-' + current_block_hash['y']; // build the cell class out of these values
                     $(cell_class).addClass('active'); // set the var cell_class to active
-                    // console.log(shape['positions'][pos_x][block_hash]);
                 }
             }
+
+
+
+
+            // perhaps draw the graph into the array, and include a property of "filled" or not. and then before switching into each one, check to see if it's filled.
+
+
+
+
+            something = [];
             i++
-            if(i >= 20) clearInterval(interval); // if the counter is over 20, then stop the interval timer
+            if(i >= 4) clearInterval(intervalDown); // if the counter is over 20, then stop the interval timer
         },500);
     }
 
@@ -116,7 +146,7 @@
         } // end for
     } // end var rotate
 
-    // if any block of my_shape touches a block with a "finalized" class, 
+    // if any block of my_shape touches a block with a "finalized" class,
 
 
     var my_shape = new Line();
