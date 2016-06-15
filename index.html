@@ -23,7 +23,6 @@
     <script src="https://use.fontawesome.com/343cc4bbfb.js"></script>
 
     <script>
-    // Create grid
 
     var Grid = function(){
         this.makeCell = function(x,y) {// this = {}
@@ -43,9 +42,7 @@
     }
 
     var VGrid = function () {
-
         gridMap = []
-
         for (var i = 1; i <= 20; i++){
             $("#board").append("<div class='trow r" + i +"'></div>");
             for (var j = 1; j <= 10; j++){
@@ -56,74 +53,27 @@
         }
     };
 
-    $(document).ready(function(){
-        var vgrid = new VGrid();
-        console.log(grid);
-    });
-
-    </script>
-
-
-
-
-
-
-
-
-
-
-
-    <script type="text/javascript">
-    // Shapes and Movements
-
-
-
-    function Line() {
-        this['positions'] = {} ;
-        this['current_position'] = 'pos_1';
-        this['positions']['pos_1'] = [{x: 1, y: 4},{x: 1, y: 5},{x: 1, y: 6},{x: 1, y: 7}];
-        this['positions']['pos_2'] = [{x: 0, y: 5},{x: 1, y: 5},{x: 2, y: 5},{x: 3, y: 5}];
-        this['positions']['pos_3'] = [{x: 1, y: 4},{x: 1, y: 5},{x: 1, y: 6},{x: 1, y: 7}];
-        this['positions']['pos_4'] = [{x: 0, y: 5},{x: 1, y: 5},{x: 2, y: 5},{x: 3, y: 5}];
-    }
-
-
-    var filled = [{x:2,y:10}];
-
-
-
-    var intervalDown;
-
     var moveDown = function(shape){
         var i = 0
-
         intervalDown = setInterval(function(){ // create interval timer as a variable so we can shut it off later
             something = [];
             for (var pos_x in shape['positions']){ // for each position
-
                 $('.active').removeClass('active'); // remove .active on any cells currently active
                 for (block_hash in shape['positions'][pos_x]){ // for each block hash in any given position
-                    if ((shape['positions'][pos_x][block_hash]['x'] + 1) == filled[0]) {alert("ok");}
+                    // if ((shape['positions'][pos_x][block_hash]['x'] + 1) == filled[0]) {alert("ok");}
                     shape['positions'][pos_x][block_hash]['x'] += 1; // increase the x value by 1, effectively moving the shape down 1 row.
                     current_block_hash = shape['positions'][shape.current_position][block_hash]; // turn this unwieldy thing into a variable
                     var cell_class = ".cell-" + current_block_hash['x'] + '-' + current_block_hash['y']; // build the cell class out of these values
                     $(cell_class).addClass('active'); // set the var cell_class to active
                 }
             }
-
-
-
-
-            // perhaps draw the graph into the array, and include a property of "filled" or not. and then before switching into each one, check to see if it's filled.
-
-
-
-
             something = [];
             i++
             if(i >= 19) clearInterval(intervalDown); // if the counter is over 20, then stop the interval timer
         },500);
     }
+
+    var intervalDown;
 
     var rotate = function(shape){
         $('.active').removeClass('active');
@@ -142,8 +92,6 @@
                 break;
         } // end switch
 
-        // need to create a for loop to redraw on rotation--otherwise it undraws it and doesn't redraw until the next moveDown
-
         for (block_hash in shape['positions'][shape.current_position]){ // for each block hash in any given position
             var current_block_hash = shape['positions'][shape.current_position][block_hash] // turn this unwieldy thing into a variable
             var cell_class = ".cell-" + current_block_hash['x'] + '-' + current_block_hash['y']; // build the cell class out of these values
@@ -151,11 +99,15 @@
         } // end for
     } // end var rotate
 
-    // if any block of my_shape touches a block with a "finalized" class,
 
-    var grid = new Grid();
-
-    var my_shape = new Line();
+    function Line() {
+        this['positions'] = {} ;
+        this['current_position'] = 'pos_1';
+        this['positions']['pos_1'] = [{x: 1, y: 4},{x: 1, y: 5},{x: 1, y: 6},{x: 1, y: 7}];
+        this['positions']['pos_2'] = [{x: 0, y: 5},{x: 1, y: 5},{x: 2, y: 5},{x: 3, y: 5}];
+        this['positions']['pos_3'] = [{x: 1, y: 4},{x: 1, y: 5},{x: 1, y: 6},{x: 1, y: 7}];
+        this['positions']['pos_4'] = [{x: 0, y: 5},{x: 1, y: 5},{x: 2, y: 5},{x: 3, y: 5}];
+    }
 
     $( "body" ).keydown(function( event ) {
         if ( event.which == 38 ) {
@@ -163,6 +115,17 @@
             rotate(my_shape);
         }
     });
+
+    // $(document).ready(function(){
+        var grid = new Grid();
+        var vgrid = new VGrid();
+        var my_shape = new Line();
+        var filled = [{x:10,y:10}];
+        var tmp = grid.makeCell(filled[0]['x'],filled[0]['y']);
+        grid[tmp] = "active"
+        console.log(tmp);
+        console.log(grid);
+    // });
 
     moveDown(my_shape);
     rotate(my_shape);
