@@ -13,16 +13,14 @@
 
     <div id="board"></div>
 <p></p>
-<p>Notes:</p>
+<h3>Notes:</h3>
+<p>Use up arrow key to rotate.</p>
+<p>Nothing else works yet!</p>
     <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
     <script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js" crossorigin="anonymous"></script>
     <script src="https://use.fontawesome.com/343cc4bbfb.js"></script>
-
-
-
-
 
     <script>
     // Create grid
@@ -30,14 +28,28 @@
     var min = 1
     var max = 26
 
-    var Cell = function(x,y){
-        // this = {}
-        this['x'] = x;
-        this['y'] = y;
-        state: "empty";
+
+
+    var Grid = function(){
+        this.makeCell = function(x,y) {// this = {}
+            if (x.toString().length < 2) {
+                x = "0" + x.toString();
+            } else {
+                x = x.toString();
+            }
+            if (y.toString().length < 2) {
+                y = "0" + y.toString();
+            } else {
+                y = y.toString();
+            }
+
+            grid[x + y] = "empty";
+            grid['state'] = "empty";
+        }
     }
 
-    var Grid = function () {
+
+    var VGrid = function () {
 
         gridMap = []
 
@@ -45,15 +57,14 @@
             $("#board").append("<div class='trow r" + i +"'></div>");
             for (var j = 1; j <= 10; j++){
                 $(".r" + i).append("<div class='tcell cell-" + i + "-" + j + "'></div>");
-                var cell = new Cell(i,j);
-                gridMap.push( cell );
+                grid.makeCell(i,j);
             }
         }
     };
 
     $(document).ready(function(){
-        var grid = new Grid();
-        console.log(gridMap);
+        var vgrid = new VGrid();
+        console.log(grid);
     });
 
     </script>
@@ -76,10 +87,10 @@
     function Line() {
         this['positions'] = {} ;
         this['current_position'] = 'pos_1';
-        this['positions']['pos_1'] = [{x: 1, y: 10},{x: 1, y: 11},{x: 1, y: 12},{x: 1, y: 13}];
-        this['positions']['pos_2'] = [{x: 0, y: 11},{x: 1, y: 11},{x: 2, y: 11},{x: 3, y: 11}];
-        this['positions']['pos_3'] = [{x: 1, y: 10},{x: 1, y: 11},{x: 1, y: 12},{x: 1, y: 13}];
-        this['positions']['pos_4'] = [{x: 0, y: 11},{x: 1, y: 11},{x: 2, y: 11},{x: 3, y: 11}];
+        this['positions']['pos_1'] = [{x: 1, y: 4},{x: 1, y: 5},{x: 1, y: 6},{x: 1, y: 7}];
+        this['positions']['pos_2'] = [{x: 0, y: 5},{x: 1, y: 5},{x: 2, y: 5},{x: 3, y: 5}];
+        this['positions']['pos_3'] = [{x: 1, y: 4},{x: 1, y: 5},{x: 1, y: 6},{x: 1, y: 7}];
+        this['positions']['pos_4'] = [{x: 0, y: 5},{x: 1, y: 5},{x: 2, y: 5},{x: 3, y: 5}];
     }
 
 
@@ -148,6 +159,7 @@
 
     // if any block of my_shape touches a block with a "finalized" class,
 
+    var grid = new Grid();
 
     var my_shape = new Line();
 
