@@ -41,12 +41,34 @@
         }
     }
 
+    function drawGrid(){
+        /* 1. look at the grid
+         * 2. for each object in the grid
+         * 3. copy its status to the vGrid
+        */
+    }
+
+    function updateGrid(n,status){
+        /* 1. take a cell address and status
+         * 2. find it in the grid
+         * 3. update the grid's cell
+         * 4. drawGrid so it goes back to the vGrid
+        */
+        console.log("We're dealing with: " + n + " " + status)
+        // 3
+        grid[n] = status;
+        console.log(grid);
+        // 4 need to run this through drawGrid...at which point we'll be drawing the redrawing the grid based on array values, not based on separate jquery logic.
+
+    }
+
     var VGrid = function () {
         gridMap = []
         for (var i = 1; i <= 20; i++){
             $("#board").append("<div class='trow r" + i +"'></div>");
             for (var j = 1; j <= 10; j++){
-                $(".r" + i).append("<div class='tcell cell-" + i + "-" + j + "'></div>");
+                var n = grid.makeCell(i,j)
+                $(".r" + i).append("<div class='tcell cell-" + i + "-" + j + " c" + n + "'></div>");
                 var a = grid.makeCell(i,j);
                 grid[a] = "empty";
             }
@@ -59,8 +81,19 @@
             for (var pos_x in shape['positions']){ // for each position
                 $('.active').removeClass('active'); // remove .active on any cells currently active
                 for (block_hash in shape['positions'][pos_x]){ // for each block hash in any given position
-                    shape['positions'][pos_x][block_hash]['x'] += 1; // increase the x value by 1, effectively moving the shape down 1 row.
+
+
                     current_block_hash = shape['positions'][shape.current_position][block_hash]; // turn this unwieldy thing into a variable
+
+
+                    n = grid.makeCell(current_block_hash['x'],current_block_hash['y']); // get cell address for current (active) values for x and y
+                    updateGrid(n,"empty"); // switch them to empty, because the shape is moving away from them
+
+                    shape['positions'][pos_x][block_hash]['x'] += 1; // increase the x value by 1, effectively moving the shape down 1 row.
+
+                    n = grid.makeCell(current_block_hash['x'],current_block_hash['y']); // get cell address for new values that should be activated
+                    updateGrid(n,"active"); // switch them to active, because this is where the shape is now.
+
                     var cell_class = ".cell-" + current_block_hash['x'] + '-' + current_block_hash['y']; // build the cell class out of these values
                     $(cell_class).addClass('active'); // set the var cell_class to active
                 }
