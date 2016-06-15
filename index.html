@@ -43,8 +43,7 @@
                 y = y.toString();
             }
 
-            grid[x + y] = "empty";
-            grid['state'] = "empty";
+            return x + y;
         }
     }
 
@@ -56,7 +55,8 @@
             $("#board").append("<div class='trow r" + i +"'></div>");
             for (var j = 1; j <= 10; j++){
                 $(".r" + i).append("<div class='tcell cell-" + i + "-" + j + "'></div>");
-                grid.makeCell(i,j);
+                var a = grid.makeCell(i,j);
+                grid[a] = "empty";
             }
         }
     };
